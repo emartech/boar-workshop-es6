@@ -41,9 +41,18 @@ describe('Secret Santa present receiver finder', function() {
   });
 
 
-  it('should propagate if there is a file system error', function(done) {
+  it('should propagate if there is a file system error (employees)', function(done) {
     options.employeesFile = __dirname + '/not-a-file';
-    presentReceiverFinder('Golf', options, function(err, result) {
+    presentReceiverFinder('Charlie', options, function(err, result) {
+      expect(err).to.exist;
+      done();
+    });
+  });
+
+
+  it('should propagate if there is a file system error (secretsanta)', function(done) {
+    options.secretSantaFile = __dirname + '/not-a-file';
+    presentReceiverFinder('Charlie', options, function(err, result) {
       expect(err).to.exist;
       done();
     });
