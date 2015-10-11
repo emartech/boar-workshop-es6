@@ -1,0 +1,21 @@
+{
+  "name": "es6-example",
+  "version": "0.1.0",
+  "description": "ES6 module of Boar Stack Workshop",
+  "main": "index.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "mocha": "2.3.3",
+    "chai": "3.3.0"
+  },
+  "scripts": {
+    "test": "mocha --reporter spec --ui bdd --recursive test"
+  },
+  "keywords": [
+    "es6",
+    "example"
+  ],
+  "author": "gszabo",
+  "license": "ISC"
+}
