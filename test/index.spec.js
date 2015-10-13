@@ -9,50 +9,40 @@ describe('Secret Santa present receiver finder', function() {
 
   beforeEach(function() {
     options = {
-      employeesFile: __dirname + '/fixture/employees.json',
-      secretSantaFile: __dirname + '/fixture/secretsanta.json'
+      customerFolder: __dirname + '/fixture',
+      blacklistFile: __dirname + '/fixture/blacklist.json'
     };
   });
 
-  it('should find Alpha for Charlie', function(done) {
-    presentReceiverFinder('Charlie', options, function(err, result) {
+  it('should find Bravo for Customer 123', function(done) {
+    presentReceiverFinder('123', options, function(err, result) {
       expect(err).to.not.exist;
-      expect(result).to.eql('Charlie -> Alpha');
+      expect(result).to.eql(['Bravo']);
       done();
     });
   });
 
 
-  it('should find Echo for Delta', function(done) {
-    presentReceiverFinder('Delta', options, function(err, result) {
+  it('should find Delta and Foxtrott for Customer 456', function(done) {
+    presentReceiverFinder('456', options, function(err, result) {
       expect(err).to.not.exist;
-      expect(result).to.eql('Delta -> Echo');
+      expect(result).to.eql(['Delta', 'Foxtrott']);
       done();
     });
   });
 
 
-  it('should give an error message for Golf', function(done) {
-    presentReceiverFinder('Golf', options, function(err, result) {
-      expect(err).to.not.exist;
-      expect(result).to.eql('Unknown employee: Golf');
-      done();
-    });
-  });
-
-
-  it('should propagate if there is a file system error (employees)', function(done) {
-    options.employeesFile = __dirname + '/not-a-file';
-    presentReceiverFinder('Charlie', options, function(err, result) {
+  it('should propagate the error if there is no such customer', function(done) {
+    presentReceiverFinder('789', options, function(err, result) {
       expect(err).to.exist;
       done();
     });
   });
 
 
-  it('should propagate if there is a file system error (secretsanta)', function(done) {
-    options.secretSantaFile = __dirname + '/not-a-file';
-    presentReceiverFinder('Charlie', options, function(err, result) {
+  it('should propagate the error if the blacklist file is missing', function(done) {
+    options.blacklistFile = __dirname + '/not-a-file';
+    presentReceiverFinder('123', options, function(err, result) {
       expect(err).to.exist;
       done();
     });

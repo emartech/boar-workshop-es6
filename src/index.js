@@ -2,41 +2,32 @@
 
 var fs = require('fs');
 
-var findPresentReceiver = function(startName, options, callback) {
-  fs.readFile(options.employeesFile, function(err, contents) {
+var findPresentReceiver = function(customerId, options, callback) {
+  fs.readFile(options.customerFolder + '/customer_' + customerId + '.json', function(err, contents) {
 
     if (err) {
       callback(err);
       return;
     }
 
-    var employees = JSON.parse(contents);
+    var adminsOfCustomer = JSON.parse(contents);
 
-    fs.readFile(options.secretSantaFile, function(err, contents) {
+    fs.readFile(options.blacklistFile, function(err, contents) {
 
       if (err) {
         callback(err);
         return;
       }
 
-      var secretSanta = JSON.parse(contents);
+      var blacklistedAdminIds = JSON.parse(contents);
 
-      var employee = employees.filter(function(e) {
-        return e.name === startName;
-      })[0];
+      var goodAdminUsernames = adminsOfCustomer.filter(function(admin) {
+        return blacklistedAdminIds.indexOf(admin.id) < 0;
+      }).map(function(admin) {
+        return admin.username;
+      });
 
-      if (!employee) {
-        callback(null, 'Unknown employee: ' + startName);
-        return;
-      }
-
-      var otherEmployeeId = secretSanta[employee.id];
-
-      var otherEmployee = employees.filter(function(e) {
-        return e.id === otherEmployeeId;
-      })[0];
-
-      callback(null, startName + ' -> ' + otherEmployee.name);
+      callback(null, goodAdminUsernames);
 
     });
 
