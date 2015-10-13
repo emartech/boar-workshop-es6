@@ -2,7 +2,7 @@
 
 var fs = require('fs');
 
-var findPresentReceiver = function(customerId, options, callback) {
+var listGoodAdminUsernames = function(customerId, options, callback) {
   fs.readFile(options.customerFolder + '/customer_' + customerId + '.json', function(err, contents) {
 
     if (err) {
@@ -34,4 +34,4 @@ var findPresentReceiver = function(customerId, options, callback) {
   });
 };
 
-module.exports = findPresentReceiver;
+module.exports = listGoodAdminUsernames;

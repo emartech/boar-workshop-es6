@@ -3,7 +3,7 @@
 var expect = require('chai').expect;
 var presentReceiverFinder = require('../src');
 
-describe('Secret Santa present receiver finder', function() {
+describe('Good admin username lister', function() {
 
   var options;
 
