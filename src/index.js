@@ -1,36 +1,19 @@
 'use strict';
 
-var fs = require('fs');
+let AdminList = require('./admin-list');
+let FileReader = require('./file-reader');
+let co = require('co');
 
-var listGoodAdminUsernames = function(customerId, options, callback) {
-  fs.readFile(options.customerFolder + '/customer_' + customerId + '.json', function(err, contents) {
-
-    if (err) {
-      callback(err);
-      return;
-    }
-
-    var adminsOfCustomer = JSON.parse(contents);
-
-    fs.readFile(options.blacklistFile, function(err, contents) {
-
-      if (err) {
-        callback(err);
-        return;
-      }
-
-      var blacklistedAdminIds = JSON.parse(contents);
-
-      var goodAdminUsernames = adminsOfCustomer.filter(function(admin) {
-        return blacklistedAdminIds.indexOf(admin.id) < 0;
-      }).map(function(admin) {
-        return admin.username;
-      });
-
-      callback(null, goodAdminUsernames);
-
-    });
-
+let listGoodAdminUsernames = function(customerId, options) {
+  return co(function*() {
+    let customerReader = new FileReader(`${options.customerFolder}/customer_${customerId}.json`);
+    yield customerReader.read();
+    let adminsOfCustomer = new AdminList(customerReader.contents);
+    let blacklistReader = new FileReader(options.blacklistFile);
+    yield blacklistReader.read();
+    let blacklistedAdminIds = JSON.parse(blacklistReader.contents);
+    let goodAdminUsernames = adminsOfCustomer.blacklist(blacklistedAdminIds).usernames;
+    return goodAdminUsernames;
   });
 };
 

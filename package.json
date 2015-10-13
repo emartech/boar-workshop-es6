@@ -4,6 +4,7 @@
   "description": "ES6 module of Boar Stack Workshop",
   "main": "index.js",
   "dependencies": {
+    "co": "^4.6.0"
   },
   "devDependencies": {
     "mocha": "2.3.3",

@@ -1,11 +1,11 @@
 'use strict';
 
-var expect = require('chai').expect;
-var presentReceiverFinder = require('../src');
+let expect = require('chai').expect;
+let presentReceiverFinder = require('../src');
 
 describe('Good admin username lister', function() {
 
-  var options;
+  let options;
 
   beforeEach(function() {
     options = {
@@ -14,37 +14,35 @@ describe('Good admin username lister', function() {
     };
   });
 
-  it('should find Bravo for Customer 123', function(done) {
-    presentReceiverFinder('123', options, function(err, result) {
-      expect(err).to.not.exist;
+  it('should find Bravo for Customer 123', function() {
+    return presentReceiverFinder('123', options).then(function(result) {
       expect(result).to.eql(['Bravo']);
-      done();
     });
   });
 
 
-  it('should find Delta and Foxtrott for Customer 456', function(done) {
-    presentReceiverFinder('456', options, function(err, result) {
-      expect(err).to.not.exist;
+  it('should find Delta and Foxtrott for Customer 456', function() {
+    return presentReceiverFinder('456', options).then(function(result) {
       expect(result).to.eql(['Delta', 'Foxtrott']);
-      done();
     });
   });
 
 
-  it('should propagate the error if there is no such customer', function(done) {
-    presentReceiverFinder('789', options, function(err, result) {
+  it('should propagate the error if there is no such customer', function() {
+    return presentReceiverFinder('789', options).then(function() {
+      throw new Error('Errors should propagate, but it seems they were handled.');
+    }, function(err) {
       expect(err).to.exist;
-      done();
     });
   });
 
 
-  it('should propagate the error if the blacklist file is missing', function(done) {
+  it('should propagate the error if the blacklist file is missing', function() {
     options.blacklistFile = __dirname + '/not-a-file';
-    presentReceiverFinder('123', options, function(err, result) {
+    return presentReceiverFinder('123', options).then(function() {
+      throw new Error('Errors should propagate, but it seems they were handled.');
+    }, function(err) {
       expect(err).to.exist;
-      done();
     });
   });
 
