@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "description": "ES6 module of Boar Stack Workshop",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/emartech/boar-workshop-es6"
+  },
   "dependencies": {
   },
   "devDependencies": {
