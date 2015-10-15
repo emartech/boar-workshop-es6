@@ -1,26 +1,29 @@
 'use strict';
 
-let fs = require('fs');
 let AdminList = require('./admin-list');
+let FileService = require('./file-service');
 
 let listGoodAdminUsernames = function(customerId, options, callback) {
-  fs.readFile(`${options.customerFolder}/customer_${customerId}.json`, function(err, contents) {
+  let customerFile = new FileService(`${options.customerFolder}/customer_${customerId}.json`);
+  let blacklistFile = new FileService(options.blacklistFile);
+
+  customerFile.read(function(err) {
 
     if (err) {
       callback(err);
       return;
     }
 
-    let adminsOfCustomer = new AdminList(contents);
+    let adminsOfCustomer = new AdminList(customerFile.contents);
 
-    fs.readFile(options.blacklistFile, function(err, contents) {
+    blacklistFile.read(function(err) {
 
       if (err) {
         callback(err);
         return;
       }
 
-      let blacklistedAdminIds = JSON.parse(contents);
+      let blacklistedAdminIds = JSON.parse(blacklistFile.contents);
       let goodAdminUsernames = adminsOfCustomer.blacklist(blacklistedAdminIds).usernames;
 
       callback(null, goodAdminUsernames);
