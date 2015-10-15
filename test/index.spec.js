@@ -1,5 +1,7 @@
 'use strict';
 
+require('co-mocha');
+
 var expect = require('chai').expect;
 var adminUsernameLister = require('../src');
 

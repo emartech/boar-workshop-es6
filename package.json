@@ -7,11 +7,15 @@
     "type": "git",
     "url": "https://github.com/emartech/boar-workshop-es6"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
-    "mocha": "2.3.3",
-    "chai": "3.3.0"
+    "chai": "3.3.0",
+    "co-mocha": "1.1.2",
+    "gulp": "3.9.0",
+    "gulp-jscs": "3.0.1",
+    "gulp-jsmin": "0.1.5",
+    "gulp-rename": "1.2.2",
+    "mocha": "2.3.3"
   },
   "scripts": {
     "test": "mocha --reporter spec --ui bdd --recursive test"
