@@ -20,7 +20,9 @@
     "mocha": "2.3.3"
   },
   "scripts": {
-    "test": "mocha --reporter spec --ui bdd --recursive test"
+    "test": "mocha --reporter spec --ui bdd --recursive test",
+    "code-style": "gulp code-style",
+    "minify": "gulp minify"
   },
   "keywords": [
     "es6",
