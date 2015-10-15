@@ -14,7 +14,7 @@ describe('Good admin username lister', function() {
     };
   });
 
-  it('should find Bravo for Customer 123', function(done) {
+  it('should filter the blacklisted admins for Customer 123 and give back the admin usernames', function(done) {
     presentReceiverFinder('123', options, function(err, result) {
       expect(err).to.not.exist;
       expect(result).to.eql(['Bravo']);
@@ -23,7 +23,7 @@ describe('Good admin username lister', function() {
   });
 
 
-  it('should find Delta and Foxtrott for Customer 456', function(done) {
+  it('should filter the blacklisted admins for Customer 456', function(done) {
     presentReceiverFinder('456', options, function(err, result) {
       expect(err).to.not.exist;
       expect(result).to.eql(['Delta', 'Foxtrott']);
