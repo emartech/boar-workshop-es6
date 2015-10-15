@@ -2,12 +2,12 @@
 
 require('co-mocha');
 
-var expect = require('chai').expect;
-var adminUsernameLister = require('../src');
+let expect = require('chai').expect;
+let adminUsernameLister = require('../src');
 
 describe('Good admin username lister', function() {
 
-  var options;
+  let options;
 
   beforeEach(function() {
     options = {
