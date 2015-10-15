@@ -10,10 +10,17 @@ class FileService {
   }
 
 
-  read(callback) {
-    fs.readFile(this._path, (err, contents) => {
-      this.contents = contents;
-      callback(err);
+  read() {
+    return new Promise((resolve, reject) => {
+      fs.readFile(this._path, (err, contents) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        this.contents = contents;
+        resolve();
+      });
     });
   }
 
