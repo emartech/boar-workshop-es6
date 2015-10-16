@@ -16,7 +16,7 @@ describe('Good admin username lister', function() {
     };
   });
 
-  it('should filter the blacklisted admins for Customer 123 and give back the admin usernames', function* () {
+  it('should filter the blacklisted hello admins for Customer 123 and give back the admin usernames', function* () {
     let result = yield adminUsernameLister('123', options);
     expect(result).to.eql(['Bravo']);
   });
