@@ -1,6 +1,6 @@
 {
   "name": "es6-example",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "ES6 module of Boar Stack Workshop",
   "main": "index.js",
   "repository": {
